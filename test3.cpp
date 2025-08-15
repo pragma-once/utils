@@ -7,7 +7,7 @@
 int main()
 {
     my_namespace::Event event;
-    auto handler = event.handle([]() { std::cout << "Test.\n"; });
+    auto handler = event.listen([]() { std::cout << "Test.\n"; });
     event.call();
     return 0;
 }
