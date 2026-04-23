@@ -2,7 +2,7 @@
 
 A simple and elegant header-only event class for C++.
 
-# Usage
+## Usage
 
 The test files contain some example usages.
 
