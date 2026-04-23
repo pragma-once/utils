@@ -5,11 +5,11 @@
 class ClassWithEvents
 {
 private:
-    Utilities::Event<> a_called_event;
-    Utilities::Event<float, int, bool> b_called_event;
+    Utils::Event<> a_called_event;
+    Utils::Event<float, int, bool> b_called_event;
 public:
-    Utilities::EventView<> a_called;
-    Utilities::EventView<float, int, bool> b_called;
+    Utils::EventView<> a_called;
+    Utils::EventView<float, int, bool> b_called;
 
     ClassWithEvents()
         : a_called(a_called_event), b_called(b_called_event)
@@ -17,24 +17,26 @@ public:
 
     void a()
     {
-        a_called_event.call();
+        a_called_event();
     }
     void b(float x, int y, bool z)
     {
-        b_called_event.call(x, y, z);
+        b_called_event(x, y, z);
     }
 };
 
 int main()
 {
     {
-        Utilities::Event<>::Listener a0; // OK
-        //std::shared_ptr<Utilities::EventListener<>> a0; // OK
+        // Actual data-type: std::shared_ptr<Utils::EventListener<>>
+        Utils::Event<>::Listener a0;
+        Utils::Event<>::Listener a0_temp;
         {
             ClassWithEvents instance;
             {
-                a0 = instance.a_called.listen([]() { std::cout << "A0\n"; });
-                auto a1 = instance.a_called.listen([]() { std::cout << "A1\n"; });
+                a0 = instance.a_called.listen([] { std::cout << "A0\n"; });
+                a0_temp = instance.a_called.listen([&] { std::cout << "A0-ONE-TIME\n"; a0_temp.reset(); });
+                auto a1 = instance.a_called.listen([] { std::cout << "A1\n"; });
                 auto b1 = instance.b_called.listen([](float x, int y, bool z) {
                     std::cout << "B1: " << x << ", " << y << ", " << z << " \n";
                 });

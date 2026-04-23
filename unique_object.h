@@ -24,12 +24,16 @@
 
 #pragma once
 
-#define UTILS_EVENT_SYNCED 0
-#include "event.impl.h"
-
-#undef UTILS_EVENT_SYNCED
-
-#define UTILS_EVENT_SYNCED 1
-#include "event.impl.h"
-
-#undef UTILS_EVENT_SYNCED
+namespace Utils
+{
+    class UniqueObject
+    {
+    public:
+        UniqueObject() = default; // To prevent no default constructor error
+        UniqueObject(const UniqueObject&) = delete;
+        UniqueObject(const UniqueObject&&) = delete;
+        const UniqueObject& operator=(const UniqueObject&) = delete;
+        const UniqueObject& operator=(const UniqueObject&&) = delete;
+    private:
+    };
+}
