@@ -12,20 +12,6 @@ Include:
 #include "path/to/event.h"
 ```
 
-Include with custom namespace:
-
-```
-#define PRAGMAONCE_EVENT_NAMESPACE_OVERRIDE My::Custom::Namespace
-#include "path/to/event.h"
-```
-
-Include with no namespace:
-
-```
-#define PRAGMAONCE_EVENT_NAMESPACE_REMOVE
-#include "path/to/event.h"
-```
-
 Create an event with no parameters:
 
 ```
