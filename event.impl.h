@@ -76,14 +76,9 @@ namespace Utils
         std::function<void(ParamTypes...)> listener_function;
     };
 
-#if UTILS_EVENT_SYNCED
-    /// @brief A event class providing observer pattern.
-    ///        This is not thread-safe.
+    /// @brief An event class providing observer pattern.
+    ///        SyncedEvent is thread-safe, Event is not thread-safe.
     template <typename... ParamTypes>
-#else
-    /// @brief A thread-safe event class providing observer pattern.
-    template <typename... ParamTypes>
-#endif
     class UTILS_EVENT_CLASS final : private UniqueObject
     {
         friend UTILS_EVENT_LISTENER_CLASS<ParamTypes...>;
